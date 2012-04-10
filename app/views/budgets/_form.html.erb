@@ -1,0 +1,35 @@
+<%= form_for(@budget) do |f| %>
+
+  <table>
+  <TD>
+  <div class="field">
+    <%= f.label :title %>
+    <%= f.text_field :title %>
+  </div>
+  <div class="field">
+    <%= f.label :budget %>
+    <%= f.text_field :budget %>
+  </div>
+  <div class="field">
+    <%= f.label :price %>
+    <%= f.text_field :price %>
+  </div>
+  </td>
+  <td>
+  <div class="field">
+    <%= f.label :description %>
+    <%= f.text_area :description %>
+  </div>
+  </td>
+  </table>
+  <style>
+  textarea
+  {
+  height:100px;
+  width:300px;
+  }
+  </style>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

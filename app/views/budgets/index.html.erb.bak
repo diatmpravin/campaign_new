@@ -1,0 +1,4 @@
+<h1>Listing budgets</h1>
+<%= render @budgets %>
+<br />
+<%= link_to 'New Campaign', new_budget_path %>

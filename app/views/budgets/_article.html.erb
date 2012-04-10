@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Title:</b>
+  <%= budget.title %>
+</p>
+
+<p>
+  <b>Budget:</b>
+  <%= budget.budget %>
+</p>
+
+<p>
+  <b>Price:</b>
+  <%= budget.price %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= budget.description %>
+</p>
+
+<%= link_to 'Show', budget %>
+<%= link_to 'Edit', edit_budget_path(budget) %> |
+<%= link_to 'Destroy', budget, :confirm => 'Are you sure?', :method => :delete %>
