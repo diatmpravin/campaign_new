@@ -17,7 +17,7 @@
 													<span id="budget">Budget: <%= budget.budget %></span><br>
 													<span id="price"> Price :<%= budget.price %></span><br><br>
 													<button id="comment_button<%= t %>"> Comment </button><br>
-													 <div  id="comment_div<%= t %> ">
+													 <div  id="comment_div<%= t %>">
 															<%= form_for([budget, budget.comments.build]) do |f| %>
 																		  <div class="field">
 																			<%= f.label :name %><br />
