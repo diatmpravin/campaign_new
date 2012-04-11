@@ -1,7 +1,12 @@
 <%= javascript_include_tag('popup.js')%>
+<%= stylesheet_link_tag('general.css') %>
+
+	
+	
 <div style="background-color: #333;">
 		<div id="container_budget">
 			<div id="form_align">
+			<br>
 				<%= render 'form' %>
 			</div>
 			<div id="content_align">
@@ -16,8 +21,8 @@
 													<span id="description"><%= budget.description %></span><br><br>
 													<span id="budget">Budget: <%= budget.budget %></span><br>
 													<span id="price"> Price :<%= budget.price %></span><br><br>
-													<button id="comment_button<%= t %>"> Comment </button><br>
-													 <div  id="comment_div<%= t %>">
+													<button id="button<%= t %>" class="comment_button<%= t %>"> Comment </button><br>
+													 <div class="comment_div<%= t %>">
 															<%= form_for([budget, budget.comments.build]) do |f| %>
 																		  <div class="field">
 																			<%= f.label :name %><br />
@@ -35,12 +40,18 @@
 															<% end %>
 													</div>
 													<script>
-														$('#comment_div<%= t %>').hide();
+														$('.comment_div<%= t %>').hide();
 														$(document).ready(function(){
-														$("#comment_button<%= t %>").click(function(){
-															$("#comment_div<%= t %>").slideToggle("slow");
+														$(".comment_button<%= t %>").click(function(){
+															$(".comment_div<%= t %>").show("slow");
 														  });
 														});
+
+														
+
+
+	
+	
 													</script>
 														
 														 
