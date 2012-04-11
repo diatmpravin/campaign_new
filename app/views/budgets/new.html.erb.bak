@@ -1,480 +1,501 @@
+<%= javascript_include_tag('popup.js')%>
 <div style="background-color: #333;">
-<div id="container_budget">
-<div id="form_align">
-<%= render 'form' %>
+		<div id="container_budget">
+			<div id="form_align">
+				<%= render 'form' %>
+			</div>
+			<div id="content_align">
+				<script src="http://masonry.desandro.com/js/modernizr-transitions.js"></script>
+				<div class="homepage ">
+					<section id="content">
+							<div id="container" class="transitions-enabled clearfix">
+									<% t=1 %>
+									<% @budgets.each do |budget| %>
+											<span class="item link">
+													<span id="title" > <%= budget.title %></span><br>
+													<span id="description"><%= budget.description %></span><br><br>
+													<span id="budget">Budget: <%= budget.budget %></span><br>
+													<span id="price"> Price :<%= budget.price %></span><br><br>
+													<button id="comment_button<%= t %>"> Comment </button><br>
+													 <div  id="comment_div<%= t %> ">
+															<%= form_for([budget, budget.comments.build]) do |f| %>
+																		  <div class="field">
+																			<%= f.label :name %><br />
+																			<%= f.text_field :name %>
+																		  </div>
+																		  <div class="field">
+																			<%= f.label :email %><br />
+																			<%= f.text_field :email %>
+																		  </div>
+																		  <div class="field">
+																			<%= f.label :body %><br />
+																			<%= f.text_area :body %>
+																		  </div>
+																		 <p><%= f.submit %></p>
+															<% end %>
+													</div>
+													<script>
+														$('#comment_div<%= t %>').hide();
+														$(document).ready(function(){
+														$("#comment_button<%= t %>").click(function(){
+															$("#comment_div<%= t %>").slideToggle("slow");
+														  });
+														});
+													</script>
+														
+														 
+														
 
-</div>
-<div id="content_align">
+														 
+														
+													
 
-  <script src="http://masonry.desandro.com/js/modernizr-transitions.js"></script>
-	<div class="homepage ">
-	<section id="content">
-   <div id="container" class="transitions-enabled clearfix">
-
-
-
-	
-
-				
-<% @budgets.each do |budget| %>
-
-					<span class="item link">
-						<span id="title" > <%= budget.title %></span><br>
-						<span id="description"><%= budget.description %></span><br><br>
-						<span id="budget">Budget: <%= budget.budget %></span><br>
-						<span id="price"> Price :<%= budget.price %></span>
-						<% budget.comments.each do |i| %>
-						  <table style="color:#a52a2a; font-size: 20px; ">
-						  <tr> 
-						  <td> Name:  <%= i.name  %><br>
-						  Comment: <%= i.body %>
-						  </td>
-						  </table>
-
-						 <% end %>
-  
-						</span>
-					  
-					<% end %>
+													<% budget.comments.each do |i| %>
+														  <table style="color:#a52a2a; font-size: 20px; ">
+														  <tr> 
+																	<td> Name:  <%= i.name  %><br>
+																	 Comment: <%= i.body %>
+																	 </td>
+															</tr>
+														  </table>
+												   <% end %> <br>
+											</span>
+											<% t+=1 %>
+									<% end %>
 					
-					
-					
-					
-					
-					
-					
-					</div> <!-- #container -->
-
-<script src="http://masonry.desandro.com/js/jquery-1.7.1.min.js"></script>
-<script src="http://masonry.desandro.com/jquery.masonry.min.js"></script>
-<script>
-  $(function(){
+						</div>
+						<script src="http://masonry.desandro.com/js/jquery-1.7.1.min.js"></script>
+						<script src="http://masonry.desandro.com/jquery.masonry.min.js"></script>
+						<script>
+						  $(function(){
+							
+							var $container = $('#container');
+							
+							$('#mini-container').masonry({
+							  columnWidth: 50
+							});
+							
+							$container.masonry({
+							  itemSelector: '.item',
+							  columnWidth: 240,
+							  isAnimated: !Modernizr.csstransitions
+							});
+							
+							// Sites using Masonry markup
+							var $sites = $('#sites'),
+								$loadingItem = $container.find('.loading');
+								
+							var ajaxError = function(){
+							  $loadingItem.text('Could not load examples :(');
+							};
+							
+							// dynamically load sites using Masonry from Zootool
+							$.getJSON('http://zootool.com/api/users/items/?username=desandro' +
+								'&apikey=8b604e5d4841c2cd976241dd90d319d7' +
+								'&tag=bestofmasonry&callback=?')
+							  .error( ajaxError )
+							  .success(function( data ){
+								
+								// proceed only if we have data
+								if ( !data || !data.length ) {
+								  ajaxError();
+								  return;
+								}
+								var items = [],
+									item, datum;
+								
+								
+								
+								var $items = $( items.join('') );
+								$items.imagesLoaded(function(){
+								  $container
+									.masonry( 'remove', $loadingItem ).masonry()
+									.append( $items ).masonry( 'appended', $items, true );
+								});
+								
+							  });
+							
+						  });
+						</script>
     
-    var $container = $('#container');
-    
-    $('#mini-container').masonry({
-      columnWidth: 50
-    });
-    
-    $container.masonry({
-      itemSelector: '.item',
-      columnWidth: 240,
-      isAnimated: !Modernizr.csstransitions
-    });
-    
-    // Sites using Masonry markup
-    var $sites = $('#sites'),
-        $loadingItem = $container.find('.loading');
-        
-    var ajaxError = function(){
-      $loadingItem.text('Could not load examples :(');
-    };
-    
-    // dynamically load sites using Masonry from Zootool
-    $.getJSON('http://zootool.com/api/users/items/?username=desandro' +
-        '&apikey=8b604e5d4841c2cd976241dd90d319d7' +
-        '&tag=bestofmasonry&callback=?')
-      .error( ajaxError )
-      .success(function( data ){
-        
-        // proceed only if we have data
-        if ( !data || !data.length ) {
-          ajaxError();
-          return;
-        }
-        var items = [],
-            item, datum;
-        
-        
-        
-        var $items = $( items.join('') );
-        $items.imagesLoaded(function(){
-          $container
-            .masonry( 'remove', $loadingItem ).masonry()
-            .append( $items ).masonry( 'appended', $items, true );
-        });
-        
-      });
-    
-  });
-</script>
-    
-    
-    
-  </section> 
-
-</div>
-
-</div>
-<style>
-
-
-#form_align
-{
-background: #97D077;
-
-position: relative;
-}
-
-#title 
-{
-font-weight: bold;
-font-size: 14px;
-}
-#budget 
-{
-font-weight: bold;
-font-size: 14px;
-}
-#price 
-{
-font-weight: bold;
-font-size: 14px;
-}
-
-
-article, aside, details, figcaption, figure,
-footer, header, hgroup, menu, nav, section {
-  display: block;
-}
-.homepage
-{
-background:#333;
-}
-
-#content{
-min-height:600px;
-}
-
-#container {
-  background: #FFF;
-  padding: 5px;
-  margin-bottom: 20px;
-  border-radius: 5px;
-  clear: both;
-  -webkit-border-radius: 5px;
-     -moz-border-radius: 5px;
-          border-radius: 5px;
-}
-
-.centered { margin: 0 auto; }
-
-.box {
-  margin: 5px;
-  padding: 5px;
-  background: #D8D5D2;
-  font-size: 11px;
-  line-height: 1.4em;
-  float: left;
-  -webkit-border-radius: 5px;
-     -moz-border-radius: 5px;
-          border-radius: 5px;
-}
-
-.box h2 {
-  font-size: 14px;
-  font-weight: 200;
-}
-
-.box img,
-#tumblelog img {
-  display: block;
-  width: 100%;
-}
-
-.rtl .box {
-  float: right;
-  text-align: right; 
-  direction: rtl;
-}
-
-
-
-.col1 { width: 80px; }
-.col2 { width: 180px; }
-.col3 { width: 280px; }
-.col4 { width: 380px; }
-.col5 { width: 480px; }
-
-.col1 img { max-width: 80px; }
-.col2 img { max-width: 180px; }
-.col3 img { max-width: 280px; }
-.col4 img { max-width: 380px; }
-.col5 img { max-width: 480px; }
-
-/**** Gutters ****/
-
-.has-gutters .box {
-  margin: 5px 0;
-}
-
-.has-gutters .col1 { width: 90px; }
-.has-gutters .col2 { width: 230px; }
-.has-gutters .col3 { width: 370px; }
-.has-gutters .col4 { width: 550px; }
-
-/**** Transitions ****/
-
-.transitions-enabled.masonry,
-.transitions-enabled.masonry .masonry-brick {
-  -webkit-transition-duration: 0.7s;
-     -moz-transition-duration: 0.7s;
-       -o-transition-duration: 0.7s;
-          transition-duration: 0.7s;
-		  background: none repeat scroll 0 0 #FFFFFF;
-    border: 1px solid #000000;
-    font-size: 15px;
-}
-
-.transitions-enabled.masonry {
-  -webkit-transition-property: height, width;
-     -moz-transition-property: height, width;
-       -o-transition-property: height, width;
-          transition-property: height, width;
-}
-
-.transitions-enabled.masonry  .masonry-brick {
-  -webkit-transition-property: left, right, top;
-     -moz-transition-property: left, right, top;
-       -o-transition-property: left, right, top;
-          transition-property: left, right, top;
-}
-
-
-/* disable transitions on container */
-.transitions-enabled.infinite-scroll.masonry {
-  -webkit-transition-property: none;
-     -moz-transition-property: none;
-       -o-transition-property: none;
-          transition-property: none;
-}
-
-/**** Primer comparison ****/
-
-#comparison {
-  overflow: auto;
-}
-
-#comparison .example {
-  width: 420px;
-  float: left;
-  margin-right: 20px;
-}
-
-#comparison .box h5 {
-  float: left;
-  margin-bottom: 0;
-  font-size: 30px;
-  margin-right: 4px;
-  line-height: 28px;
-  font-weight: bold;
-  color: #FFF;
-}
-
-/* Homepage */
-
-.homepage .item {
-  width: 200px;
-  float: left;
-  padding: 10px;
-  margin: 10px;
-  background: #D8D5D2;
-  font-weight: 200;
-  -webkit-border-radius: 5px;
-     -moz-border-radius: 5px;
-          border-radius: 5px;
-}
-
-.homepage .big-text,
-.homepage .link {
-  font-size: 24px;
-  line-height: 1.2em;
-}
-
-.homepage .link {
-  padding: 0;
-}
-
-.homepage .link a {
-  display: block;
-  padding: 10px;
-  width: 200px;
-  background: #D26;
-  color: white;
-  -webkit-border-radius: 5px;
-     -moz-border-radius: 5px;
-          border-radius: 5px;
-}
-
-.homepage .link a:hover {
-  background: #A2C;
-}
-
-.homepage .col2 {
-  width: 440px;
-}
-
-.homepage .example {
-  padding: 0;
-  width: 220px;
-  background: transparent;
-}
-
-.homepage .example a { display: block; }
-
-.homepage .example img {
-  display: block;
-  width: 100%;
-}
-
-.homepage .example a:hover { 
-  background: #D26;
-  color: white;
-}
-
-.homepage .loading {
-  background: black;
-  color: #D8D5D2;
-}
-
-.homepage .loading img {
-  float: left; 
-  padding-right: 5px;
-  width: 54px;
-}
-
-/* mini example */
-
-.homepage .mini div {
-  float: left;
-  background: white;
-  margin: 3px;
-  color: #D8D5D2;
-  font-weight: bold;
-  font-size: 32px;
-  line-height: 46px;
-  text-align: center;
-  -webkit-border-radius: 3px;
-     -moz-border-radius: 3px;
-          border-radius: 3px;
-}
-
-.homepage .mini .w1 { width: 44px; }
-.homepage .mini .h1 { height: 44px; }
-.homepage .mini .w2 { width: 94px; }
-.homepage .mini .h2 { height: 94px; }
-
-/* Tumblelog example */
-
-#tumblelog {
-  background: #FFF;
-  padding: 1.0em;
-}
-
-#tumblelog .story {
-  margin: 10px;
-  border-top: 4px solid #DCB;
-  padding-top: 10px;
-  background: #FFF;
-  float: left;
-}
-
-#tumblelog h1, #tumblelog h2, #tumblelog h3 { font-weight: bold;}
-
-#tumblelog .col1 { width: 220px; }
-#tumblelog .col2 { width: 460px; }
-#tumblelog .col3 { width: 700px; }
-
-#tumblelog .col1 img,
-#tumblelog .col2 img,
-#tumblelog .col3 img {
-  max-width: none;
-}
-
-/* Infinite Scroll loader */
-#infscr-loading { 
-  text-align: center;
-  z-index: 100;
-  position: fixed;
-  left: 45%;
-  bottom: 40px;
-  width: 200px;
-  padding: 10px;
-  background: #000; 
-  opacity: 0.8;
-  color: #FFF;
-  -webkit-border-radius: 10px;
-     -moz-border-radius: 10px;
-          border-radius: 10px;
-}
-
-/**** Fluid ****/
-
-#container.fluid  {
-  padding: 5px 0;
-}
-
-/* right margin value is 0.1% less than calculated,
-  to allow for rounding errors in Firefox */
-.fluid .box {
-  margin: 5px 0.9% 5px 1%;
-  padding: 5px 1%;
-}
-
-.fluid .box.col1 { width: 16%; }
-.fluid .box.col2 { width: 36%; }
-.fluid .box.col3 { width: 56%; }
-
-/**** Corner stamp ****/
-
-.corner-stamp {
-  width: 280px;
-  height: 340px;
-  padding: 10px;
-  margin: 10px;
-  float: right;
-  background: red;
-  color: white;
-  -webkit-border-radius: 5px;
-     -moz-border-radius: 5px;
-          border-radius: 5px;
-}
-
-/**** Pygments ****/
-
-code .s1,
-code .s { color: #78BD55; } /* string */
-code .mi, /* integer */
-code .cp, /* doctype */
-code .kc { color: #5298D4; } /*boolean*/
-code .k { color: #E39B79; } /* keyword */
-code .kd, /* storage */
-code .na { color: #A9D866; } /* markup attribute */
-code .p  { color: #EDB; } /* punctuation */
-code .o  { color: #F63; }   /* operator */
-code .nb { color: #AA97AC;} /* support */
-
-/* comment */
-code .c,
-code .c1 { color: #666; font-style: italic; }
-
-code .nt { color: #A0C8FC; } /* Markup open tag */
-
-code .nf { color: #9EA8B8; } /* css id */
-code .nc { color: #A78352; }  /* CSS class */
-code .m  { color: #DE8E50; } /* CSS value */
-code .nd { color: #9FAD7E; } /* CSS pseudo selector */
-
-/**** Clearfix ****/
-.clearfix:before, .clearfix:after { content: ""; display: table; }
-.clearfix:after { clear: both; }
-.clearfix { zoom: 1; }
-#container_budget
-{
-margin-left: 20%;
-margin-right: 20%;
-}
-</style>
+				 </section> 
+			</div>
+		</div>
+							<style>
+
+							#comment_button
+							{
+							left: 50px;
+							position: relative;
+							background: #89CA65;
+							height: 25px;
+							}
+							#form_align
+							{
+							background: #97D077;
+							height:110px;
+							position: relative;
+							}
+
+							#title 
+							{
+							font-weight: bold;
+							font-size: 14px;
+							}
+							#budget 
+							{
+							font-weight: bold;
+							font-size: 14px;
+							}
+							#price 
+							{
+							font-weight: bold;
+							font-size: 14px;
+							}
+
+
+							article, aside, details, figcaption, figure,
+							footer, header, hgroup, menu, nav, section {
+							  display: block;
+							}
+							.homepage
+							{
+							background:#333;
+							}
+
+							#content{
+							min-height:600px;
+							}
+
+							#container {
+							  background: #FFF;
+							  padding: 5px;
+							  margin-bottom: 20px;
+							  border-radius: 5px;
+							  clear: both;
+							  -webkit-border-radius: 5px;
+								 -moz-border-radius: 5px;
+									  border-radius: 5px;
+							}
+
+							.centered { margin: 0 auto; }
+
+							.box {
+							  margin: 5px;
+							  padding: 5px;
+							  background: #D8D5D2;
+							  font-size: 11px;
+							  line-height: 1.4em;
+							  float: left;
+							  -webkit-border-radius: 5px;
+								 -moz-border-radius: 5px;
+									  border-radius: 5px;
+							}
+
+							.box h2 {
+							  font-size: 14px;
+							  font-weight: 200;
+							}
+
+							.box img,
+							#tumblelog img {
+							  display: block;
+							  width: 100%;
+							}
+
+							.rtl .box {
+							  float: right;
+							  text-align: right; 
+							  direction: rtl;
+							}
+
+
+
+							.col1 { width: 80px; }
+							.col2 { width: 180px; }
+							.col3 { width: 280px; }
+							.col4 { width: 380px; }
+							.col5 { width: 480px; }
+
+							.col1 img { max-width: 80px; }
+							.col2 img { max-width: 180px; }
+							.col3 img { max-width: 280px; }
+							.col4 img { max-width: 380px; }
+							.col5 img { max-width: 480px; }
+
+							/**** Gutters ****/
+
+							.has-gutters .box {
+							  margin: 5px 0;
+							}
+
+							.has-gutters .col1 { width: 90px; }
+							.has-gutters .col2 { width: 230px; }
+							.has-gutters .col3 { width: 370px; }
+							.has-gutters .col4 { width: 550px; }
+
+							/**** Transitions ****/
+
+							.transitions-enabled.masonry,
+							.transitions-enabled.masonry .masonry-brick {
+							  -webkit-transition-duration: 0.7s;
+								 -moz-transition-duration: 0.7s;
+								   -o-transition-duration: 0.7s;
+									  transition-duration: 0.7s;
+									  background: none repeat scroll 0 0 #FFFFFF;
+								border: 1px solid #000000;
+								font-size: 15px;
+							}
+
+							.transitions-enabled.masonry {
+							  -webkit-transition-property: height, width;
+								 -moz-transition-property: height, width;
+								   -o-transition-property: height, width;
+									  transition-property: height, width;
+							}
+
+							.transitions-enabled.masonry  .masonry-brick {
+							  -webkit-transition-property: left, right, top;
+								 -moz-transition-property: left, right, top;
+								   -o-transition-property: left, right, top;
+									  transition-property: left, right, top;
+							}
+
+
+							/* disable transitions on container */
+							.transitions-enabled.infinite-scroll.masonry {
+							  -webkit-transition-property: none;
+								 -moz-transition-property: none;
+								   -o-transition-property: none;
+									  transition-property: none;
+							}
+
+							/**** Primer comparison ****/
+
+							#comparison {
+							  overflow: auto;
+							}
+
+							#comparison .example {
+							  width: 420px;
+							  float: left;
+							  margin-right: 20px;
+							}
+
+							#comparison .box h5 {
+							  float: left;
+							  margin-bottom: 0;
+							  font-size: 30px;
+							  margin-right: 4px;
+							  line-height: 28px;
+							  font-weight: bold;
+							  color: #FFF;
+							}
+
+							/* Homepage */
+
+							.homepage .item {
+							  width: 200px;
+							  float: left;
+							  padding: 10px;
+							  margin: 10px;
+							  background: #D8D5D2;
+							  font-weight: 200;
+							  -webkit-border-radius: 5px;
+								 -moz-border-radius: 5px;
+									  border-radius: 5px;
+							}
+
+							.homepage .big-text,
+							.homepage .link {
+							  font-size: 24px;
+							  line-height: 1.2em;
+							}
+
+							.homepage .link {
+							  padding: 0;
+							}
+
+							.homepage .link a {
+							  display: block;
+							  padding: 10px;
+							  width: 200px;
+							  background: #D26;
+							  color: white;
+							  -webkit-border-radius: 5px;
+								 -moz-border-radius: 5px;
+									  border-radius: 5px;
+							}
+
+							.homepage .link a:hover {
+							  background: #A2C;
+							}
+
+							.homepage .col2 {
+							  width: 440px;
+							}
+
+							.homepage .example {
+							  padding: 0;
+							  width: 220px;
+							  background: transparent;
+							}
+
+							.homepage .example a { display: block; }
+
+							.homepage .example img {
+							  display: block;
+							  width: 100%;
+							}
+
+							.homepage .example a:hover { 
+							  background: #D26;
+							  color: white;
+							}
+
+							.homepage .loading {
+							  background: black;
+							  color: #D8D5D2;
+							}
+
+							.homepage .loading img {
+							  float: left; 
+							  padding-right: 5px;
+							  width: 54px;
+							}
+
+							/* mini example */
+
+							.homepage .mini div {
+							  float: left;
+							  background: white;
+							  margin: 3px;
+							  color: #D8D5D2;
+							  font-weight: bold;
+							  font-size: 32px;
+							  line-height: 46px;
+							  text-align: center;
+							  -webkit-border-radius: 3px;
+								 -moz-border-radius: 3px;
+									  border-radius: 3px;
+							}
+
+							.homepage .mini .w1 { width: 44px; }
+							.homepage .mini .h1 { height: 44px; }
+							.homepage .mini .w2 { width: 94px; }
+							.homepage .mini .h2 { height: 94px; }
+
+							/* Tumblelog example */
+
+							#tumblelog {
+							  background: #FFF;
+							  padding: 1.0em;
+							}
+
+							#tumblelog .story {
+							  margin: 10px;
+							  border-top: 4px solid #DCB;
+							  padding-top: 10px;
+							  background: #FFF;
+							  float: left;
+							}
+
+							#tumblelog h1, #tumblelog h2, #tumblelog h3 { font-weight: bold;}
+
+							#tumblelog .col1 { width: 220px; }
+							#tumblelog .col2 { width: 460px; }
+							#tumblelog .col3 { width: 700px; }
+
+							#tumblelog .col1 img,
+							#tumblelog .col2 img,
+							#tumblelog .col3 img {
+							  max-width: none;
+							}
+
+							/* Infinite Scroll loader */
+							#infscr-loading { 
+							  text-align: center;
+							  z-index: 100;
+							  position: fixed;
+							  left: 45%;
+							  bottom: 40px;
+							  width: 200px;
+							  padding: 10px;
+							  background: #000; 
+							  opacity: 0.8;
+							  color: #FFF;
+							  -webkit-border-radius: 10px;
+								 -moz-border-radius: 10px;
+									  border-radius: 10px;
+							}
+
+							/**** Fluid ****/
+
+							#container.fluid  {
+							  padding: 5px 0;
+							}
+
+							/* right margin value is 0.1% less than calculated,
+							  to allow for rounding errors in Firefox */
+							.fluid .box {
+							  margin: 5px 0.9% 5px 1%;
+							  padding: 5px 1%;
+							}
+
+							.fluid .box.col1 { width: 16%; }
+							.fluid .box.col2 { width: 36%; }
+							.fluid .box.col3 { width: 56%; }
+
+							/**** Corner stamp ****/
+
+							.corner-stamp {
+							  width: 280px;
+							  height: 340px;
+							  padding: 10px;
+							  margin: 10px;
+							  float: right;
+							  background: red;
+							  color: white;
+							  -webkit-border-radius: 5px;
+								 -moz-border-radius: 5px;
+									  border-radius: 5px;
+							}
+
+							/**** Pygments ****/
+
+							code .s1,
+							code .s { color: #78BD55; } /* string */
+							code .mi, /* integer */
+							code .cp, /* doctype */
+							code .kc { color: #5298D4; } /*boolean*/
+							code .k { color: #E39B79; } /* keyword */
+							code .kd, /* storage */
+							code .na { color: #A9D866; } /* markup attribute */
+							code .p  { color: #EDB; } /* punctuation */
+							code .o  { color: #F63; }   /* operator */
+							code .nb { color: #AA97AC;} /* support */
+
+							/* comment */
+							code .c,
+							code .c1 { color: #666; font-style: italic; }
+
+							code .nt { color: #A0C8FC; } /* Markup open tag */
+
+							code .nf { color: #9EA8B8; } /* css id */
+							code .nc { color: #A78352; }  /* CSS class */
+							code .m  { color: #DE8E50; } /* CSS value */
+							code .nd { color: #9FAD7E; } /* CSS pseudo selector */
+
+							/**** Clearfix ****/
+							.clearfix:before, .clearfix:after { content: ""; display: table; }
+							.clearfix:after { clear: both; }
+							.clearfix { zoom: 1; }
+							#container_budget
+							{
+							margin-left: 20%;
+							margin-right: 20%;
+							}
+							</style>
 
 </div>
 </div>

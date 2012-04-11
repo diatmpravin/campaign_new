@@ -19,7 +19,7 @@ class BudgetsController < ApplicationController
     @comment= @budget.comments.all
  
    
-   
+  
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @budget }
@@ -33,7 +33,8 @@ class BudgetsController < ApplicationController
   def new
     @budget = Budget.new
 	
-	@budgets = Budget.all.sort { |p1, p2| p1.title <=> p2.title }
+	@budgets = Budget.all.sort { |p1, p2| p1.budget <=> p2.budget }
+	 
 
 
     respond_to do |format|

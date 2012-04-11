@@ -23,7 +23,7 @@
 
 <%= link_to 'Edit', edit_budget_path(@budget) %> |
 <%= link_to 'Back', budgets_path %>
-<%= form_for([@budget, @budget.comments.build]) do |f| %>
+<%= form_for([@budget1, @budget1.comments.build]) do |f| %>
   <div class="field">
     <%= f.label :name %><br />
     <%= f.text_field :name %>
@@ -39,7 +39,11 @@
   <p><%= f.submit %></p>
 <% end %>
 <% @comment.each do |i| %>
-  <%= i.name  %>
-  <%= i.body %>
+  <table style="color:#a52a2a; font-size: 20px; ">
+  <tr> 
+  <td> Name:  <%= i.name  %><br>
+  Comment: <%= i.body %>
+  </td>
+  </table>
 
  <% end %>
