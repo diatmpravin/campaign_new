@@ -18,19 +18,20 @@
   
   <table class="field1">
    <tr>
-   <td><span id="desc"><%= f.label :description %></span></td>
-   <td> <%= f.text_area :description %></td>
+   <td id="test"><%= f.label :description %></td>
+   <td  valign="top"> <%= f.text_area :description %></td>
   </tr>
   </table>
   <style>
-  	
+  #test{
+  	 vertical-align:middle;
+  }
   .field1
   {
   float: left;
 left: 300px;
 position: absolute;
 top: 0;
-valign:top;
 }
   textarea
   {

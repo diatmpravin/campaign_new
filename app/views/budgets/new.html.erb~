@@ -356,7 +356,7 @@
 							}
 
 							.homepage .link a:hover {
-							  background: #A2C;
+							  background: #BAE0A3;
 							}
 
 							.homepage .col2 {
@@ -522,6 +522,7 @@
 							{
 							margin-left: 20%;
 							margin-right: 20%;
+							padding-top:100px;
 							}
 							</style>
 
