@@ -56,7 +56,10 @@ GEM
     mime-types (1.18)
     multi_json (1.2.0)
     mysql (2.8.1)
+<<<<<<< HEAD
+=======
     pg (0.13.2)
+>>>>>>> 6ae8b9ecbc7541ce03692666872c6ed31449018c
     polyglot (0.3.3)
     rack (1.4.1)
     rack-cache (1.2)
@@ -111,7 +114,6 @@ DEPENDENCIES
   coffee-rails (~> 3.2.1)
   jquery-rails
   mysql
-  pg
   rails (= 3.2.3)
   sass-rails (~> 3.2.3)
   therubyracer

@@ -1,3 +1,4 @@
+
 class BudgetsController < ApplicationController
   # GET /budgets
   # GET /budgets.json
@@ -95,3 +96,4 @@ class BudgetsController < ApplicationController
     end
   end
 end
+

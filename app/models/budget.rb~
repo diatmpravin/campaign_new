@@ -1,8 +1,19 @@
+<<<<<<< HEAD
 class Budget < ActiveRecord::Base
+  
   attr_accessible :budget, :description, :price, :title
   
   validates_presence_of :budget, :description, :price, :title
   validates_uniqueness_of :title
 
   has_many :comments, :dependent => :destroy
+
 end
+=======
+class Budget < ActiveRecord::Base
+  attr_accessible :budget, :description, :price, :title
+  validates_presence_of :budget, :description, :price, :title
+validates_uniqueness_of :title
+has_many :comments, :dependent => :destroy
+end
+>>>>>>> c5a28841795faef93accf7789005f3a939bfd01b

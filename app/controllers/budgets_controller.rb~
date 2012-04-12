@@ -1,3 +1,4 @@
+
 class BudgetsController < ApplicationController
   # GET /budgets
   # GET /budgets.json
@@ -34,7 +35,6 @@ class BudgetsController < ApplicationController
     @budget = Budget.new
 	  
 	  @budgets = Budget.all.sort { |p1, p2| p1.budget <=> p2.budget }
-	 
 
     respond_to do |format|
       format.html # new.html.erb
@@ -96,3 +96,4 @@ class BudgetsController < ApplicationController
     end
   end
 end
+

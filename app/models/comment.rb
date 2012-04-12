@@ -5,3 +5,4 @@ class Comment < ActiveRecord::Base
    belongs_to :budget
 
 end
+

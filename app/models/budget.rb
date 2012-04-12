@@ -1,3 +1,4 @@
+
 class Budget < ActiveRecord::Base
   
   attr_accessible :budget, :description, :price, :title
@@ -8,3 +9,4 @@ class Budget < ActiveRecord::Base
   has_many :comments, :dependent => :destroy
 
 end
+

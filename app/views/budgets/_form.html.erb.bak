@@ -1,48 +1,29 @@
 <%= form_for(@budget) do |f| %>
 
   <table>
-  <tr>
-  <td>
-	<%= f.label :title %></td>
-    <td><%= f.text_field :title %></td>
-  </tr>
-  <tr class="field">
-   <td> <%= f.label :budget %></td>
-    <td><%= f.text_field :budget %></td>
-  </tr>
-  <tr class="field">
-  <td>  <%= f.label :price %></td>
-   <td> <%= f.text_field :price %></td>
-  </tr>
-  </table>
-  
-  <table class="field1">
-   <tr>
-   <td valign="top"><%= f.label :description %></td>
-   <td> <%= f.text_area :description %></td>
-  </tr>
+ <td>
+   <tr> <%= f.label :title %>
+    <%= f.text_field :title %></tr><br>
+ 
+    <tr><%= f.label :budget %>
+    <%= f.text_field :budget %></tr><br>
+ 
+   <tr> <%= f.label :price %>
+    <%= f.text_field :price %></tr><br>
+</td>
+<td>
+    <%= f.label :description %>
+    <%= f.text_area :description %>
+ </td>
   </table>
   <style>
-  .field1
-  {
-  float: left;
-left: 300px;
-position: absolute;
-top: 0;
-}
   textarea
   {
   height:100px;
   width:300px;
   }
-  #action
-  {
-  bottom: 10px;
-position: relative;
-left: 690px;
-}
   </style>
-  <div id="action" class="actions">
+  <div class="actions">
     <%= f.submit %>
   </div>
 <% end %>

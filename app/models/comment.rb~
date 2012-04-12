@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 class Comment < ActiveRecord::Base
 
    attr_accessible :body, :budget_id, :email, :name
@@ -5,3 +6,9 @@ class Comment < ActiveRecord::Base
    belongs_to :budget
 
 end
+=======
+class Comment < ActiveRecord::Base
+  attr_accessible :body, :budget_id, :email, :name
+   belongs_to :budget
+end
+>>>>>>> c5a28841795faef93accf7789005f3a939bfd01b
