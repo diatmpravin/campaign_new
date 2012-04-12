@@ -41,7 +41,7 @@ class CommentsController < ApplicationController
   # POST /comments.json
   def create
     @budget = Budget.find(params[:budget_id])
-    @comment = @budget.comments.create(params[:comment])
+    #@comment = @budget.comments.create(params[:comment])
     #raise @budget.inspect
     #raise @budget.price.inspect
     #raise @budget.budget.inspect

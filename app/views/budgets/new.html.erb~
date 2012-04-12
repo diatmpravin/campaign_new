@@ -5,32 +5,43 @@
 			<br>
 				<%= render 'form' %>
 			</div>
+			<section id="linkBar">
+				<table widht="100%" align="center">
+					<tr>
+						<td>Sort By</td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+				</table>
+			</section>
 			<div id="content_align">
 				<script src="http://masonry.desandro.com/js/modernizr-transitions.js"></script>
 				<div class="homepage ">
 					<section id="content">
 							<div id="container" class="transitions-enabled clearfix">
 									<% t=1 %>
-									<% @budgets.each do |budget| %>
+									<% @budgets.each do |budget| %>									
 											<span class="item link">
 													<span id="title" > <%= budget.title %></span><br>
 													<span id="description"><%= budget.description %></span><br><br>
 													<span id="budget">Budget: <%= budget.budget %></span><br>
 													<span id="price"> Price :<%= budget.price %></span><br><br>
-													<button id="comment_buttonR<%= t %>"> Comment </button><br>
+													<button id="comment_button<%= t %>"> Comment </button><br>
+													<%= link_to "Comment", budget_comments_path(:budget_id => budget.id), :method => "post" %>
 													 <div  id="comment_div<%= t %>">
 															<%= form_for([budget, budget.comments.build]) do |f| %>
 																		  <div class="field">
 																			<%= f.label :name %><br />
-																			<%= f.text_field :name %>
+																			<%= f.text_field :name, :size => "15" %>
 																		  </div>
 																		  <div class="field">
 																			<%= f.label :email %><br />
-																			<%= f.text_field :email %>
+																			<%= f.text_field :email, :size => "15" %>
 																		  </div>
 																		  <div class="field">
 																			<%= f.label :body %><br />
-																			<%= f.text_area :body %>
+																			<%= f.text_area :body, :id => "on_focus_textarea" %>
 																		  </div>
 																		 <p><%= f.submit %></p>
 															<% end %>
@@ -53,14 +64,13 @@
 
 													<% budget.comments.each do |i| %>
 														  <table style="color:#a52a2a; font-size: 20px; ">
-														  <tr> 
-														  		<!-->
-																	<td> Name:  <%= i.name  %><br>
-																	 Comment: <%= i.body %>
-																	 
+														  <% if i.name != nil %>
+														  	<tr> 														  	
+																	<td> Name: <%= i.name  %><br>
+																	 Comment: <%= i.body %>																	 
 																	 </td>
-																	 -->
 															</tr>
+														  <% end %>														  
 														  </table>
 												   <% end %> <br>
 											</span>
@@ -126,13 +136,23 @@
 			</div>
 		</div>
 							<style>
+							#on_focus_textarea
+							{									
+									max-width: 180px; 
+									min-width:180px; 
+							}
 
+							#linkBar{
+								width:100%;
+								height:50px;
+								background:#BAE0A3;
+							}
 							#comment_button
 							{
-							left: 50px;
-							position: relative;
-							background: #89CA65;
-							height: 25px;
+								left: 50px;
+								position: relative;
+								background: #89CA65;
+								height: 25px;
 							}
 							#form_align
 							{
@@ -321,10 +341,11 @@
 							}
 
 							.homepage .link a {
+							   border: 2px solid #000;
 							  display: block;
 							  padding: 10px;
-							  width: 200px;
-							  background: #D26;
+							  width: 100px;
+							  background: #8AC860;
 							  color: white;
 							  -webkit-border-radius: 5px;
 								 -moz-border-radius: 5px;
