@@ -32,9 +32,13 @@ class BudgetsController < ApplicationController
 
   
   def new
+  	#raise params[:ref].inspect
     @budget = Budget.new
-	  
-	  @budgets = Budget.all.sort { |p1, p2| p1.budget <=> p2.budget }
+	  if params[:ref] == "budget"
+	  	@budgets = Budget.all.sort { |p1, p2| p1.budget <=> p2.budget }
+	  else
+	  	@budgets = Budget.all.sort { |p1, p2| p1.title <=> p2.title }
+	  end
 
     respond_to do |format|
       format.html # new.html.erb

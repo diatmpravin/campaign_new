@@ -9,8 +9,8 @@
 				<table widht="100%" align="center">
 					<tr>
 						<td>Sort By</td>
-						<td></td>
-						<td></td>
+						<td><%= link_to "Budget", new_budget_path(:ref => "budget"),  :class=>"sort" %></td>
+						<td><%= link_to "Title", new_budget_path(:ref => "title"),  :class=>"sort" %></td>
 						<td></td>
 					</tr>
 				</table>
@@ -358,6 +358,22 @@
 							.homepage .link a:hover {
 							  background: #BAE0A3;
 							}
+							
+							.sort{
+							  background: none repeat scroll 0 0 #8AC860;
+								border: 2px solid #000000;
+								border-radius: 5px 5px 5px 5px;
+								color: white;
+								display: block;
+								margin-bottom: 10px;
+								margin-left: 50px;
+								padding: 10px;
+								width: 70px;
+							}
+
+							.sort{
+							  background: #BAE0A3;
+							}
 
 							.homepage .col2 {
 							  width: 440px;
@@ -522,7 +538,8 @@
 							{
 							margin-left: 20%;
 							margin-right: 20%;
-							padding-top:100px;
+							padding-top:50px;
+							padding-button:50px;
 							}
 							</style>
 
