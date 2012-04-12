@@ -7,7 +7,7 @@ development:
  adapter: mysql  
  database: campaign  
  username: root  
- password:  
+ password: pass 
  host: localhost  
  port: 3306
 
@@ -18,7 +18,7 @@ test:
  adapter: mysql  
  database: campaign  
  username: root  
- password:  
+ password: pass 
  host: localhost  
  port: 3306
 
@@ -26,6 +26,6 @@ production:
  adapter: mysql  
  database: campaign  
  username: root  
- password:  
+ password: pass 
  host: localhost  
  port: 3306
