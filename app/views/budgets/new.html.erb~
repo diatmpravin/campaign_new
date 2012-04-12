@@ -27,7 +27,9 @@
 													<span id="description"><%= budget.description %></span><br><br>
 													<span id="budget">Budget: <%= budget.budget %></span><br>
 													<span id="price"> Price :<%= budget.price %></span><br><br>
+													<!--
 													<button id="comment_button<%= t %>"> Comment </button><br>
+													-->
 													<%= link_to "Comment", budget_comments_path(:budget_id => budget.id), :method => "post" %>
 													 <div  id="comment_div<%= t %>">
 															<%= form_for([budget, budget.comments.build]) do |f| %>
@@ -61,7 +63,7 @@
 														 
 														
 													
-
+													<!--
 													<% budget.comments.each do |i| %>
 														  <table style="color:#a52a2a; font-size: 20px; ">
 														  <% if i.name != nil %>
@@ -73,6 +75,7 @@
 														  <% end %>														  
 														  </table>
 												   <% end %> <br>
+												   -->
 											</span>
 											<% t+=1 %>
 									<% end %>
@@ -344,7 +347,7 @@
 							   border: 2px solid #000;
 							  display: block;
 							  padding: 10px;
-							  width: 100px;
+							  width: 70px;
 							  background: #8AC860;
 							  color: white;
 							  -webkit-border-radius: 5px;
