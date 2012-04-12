@@ -56,10 +56,6 @@ GEM
     mime-types (1.18)
     multi_json (1.2.0)
     mysql (2.8.1)
-<<<<<<< HEAD
-=======
-    pg (0.13.2)
->>>>>>> 6ae8b9ecbc7541ce03692666872c6ed31449018c
     polyglot (0.3.3)
     rack (1.4.1)
     rack-cache (1.2)
