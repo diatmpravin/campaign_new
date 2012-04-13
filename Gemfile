@@ -1,4 +1,4 @@
-
+homepage .link a
 source 'https://rubygems.org'
 source :gemcutter
 
